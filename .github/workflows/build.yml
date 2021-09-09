@@ -12,7 +12,7 @@ jobs:
       - name: Run the builder
         uses: MinecraftPlusGang/ZipUp@v1.0.6
         with:
-          files: '["packs/*/*", "pack.mcmeta"]'
+          files: '["packs/*/", "pack.mcmeta"]'
           out-path: 'pack.zip'
       
       - name: Commit files
