@@ -1,18 +1,14 @@
-name: Build
-on:
-  push:
-    branches: [ master ]
-  workflow_dispatch:
+name: Build Pack
+on: [push]
 
 jobs:
-  build:
+  hello_world_job:
     runs-on: ubuntu-latest
+    name: A job to say hello
     steps:
-    - uses: actions/checkout@master
-    - name: build-pack
-      uses: thedoctor0/zip-release@master
-      with:
-        type: 'zip'
-        filename: 'pack.zip'
-        exclusions: '*.git* packs/example/** *.zip *.md'
-        directory: ${{ github.workspace }}
+      - name: Hello world action step
+        id: hello
+        uses: actions/zipup@v1.0.1
+        with:
+          files: '["packs/**", "pack.mcmeta"]'
+          out-path: 'pack.zip'
