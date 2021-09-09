@@ -14,4 +14,5 @@ jobs:
       with:
         type: 'zip'
         filename: 'pack.zip'
-        exclusions: '*.git* packs/example/** *.zip'
+        exclusions: '*.git* packs/example/** *.zip *.md'
+        directory: ${{ github.workspace }}
