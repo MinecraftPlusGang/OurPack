@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Build Resourcepack
     steps:
-      - uses: MinecraftPlusGang/ZipUp@v1.0.5
+      - uses: MinecraftPlusGang/ZipUp@v1.0.6
         with:
           files: '["packs/**", "pack.mcmeta"]'
           out-path: 'pack.zip'
