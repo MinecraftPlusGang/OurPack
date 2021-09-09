@@ -7,10 +7,10 @@ jobs:
     name: Build Resourcepack
     steps:
       - name: Checkout the repo
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
       
       - name: Run the builder
-      - uses: MinecraftPlusGang/ZipUp@v1.0.6
+        uses: MinecraftPlusGang/ZipUp@v1.0.6
         with:
           files: '["packs/**", "pack.mcmeta"]'
           out-path: 'pack.zip'
