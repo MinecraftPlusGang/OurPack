@@ -6,20 +6,22 @@ jobs:
     runs-on: ubuntu-latest
     name: Build Resourcepack
     steps:
-      - uses: actions/checkout@v1
-      - uses: MinecraftPlusGang/ZipUp@v1.0.6
-        with:
-          files: '["packs/**", "pack.mcmeta"]'
-          out-path: 'pack.zip'
-      - name: Switch from HTTPS to SSH
-        run: git remote set-url --push origin ${{ secrets.ssh }}
-      - name: Check for changes
-        run: git status
-      - name: Stage changed files
-        run: git add .
-      - name: Commit changed files
-        run: git commit -m "Auto-packaging"
-      - name: Fetch from master
-        run: git fetch origin master
-      - name: Push code to master
-        run: git push origin HEAD:master
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    # Runs commands using the runners shell
+    - name: Run the builder
+    - uses: MinecraftPlusGang/ZipUp@v1.0.6
+      with:
+        files: '["packs/**", "pack.mcmeta"]'
+        out-path: 'pack.zip'
+    - name: Commit files  # transfer the pack back into the repository
+      run: |
+        git config --local user.name  ${{ github.actor }}
+        git add ./**
+        git commit -m "Auto-build of resource pack"
+    - name: Push changes  # push the output folder to your repo
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        force: true
