@@ -1,5 +1,5 @@
 name: Build Pack
-on: [push]
+on: [push, workflow_dispatch]
 
 jobs:
   build:
