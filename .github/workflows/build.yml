@@ -18,7 +18,7 @@ jobs:
           args: unzip "packs/*.zip" -d ./output
       
       - name: Copy Overrides
-        run: cp ./overrides/* ./output/
+        run: yes | cp -rf ./overrides/* ./output/
       
       - name: Create Singular Pack
         uses: TonyBogdanov/zip@1.0
