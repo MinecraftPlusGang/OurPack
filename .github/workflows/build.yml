@@ -1,0 +1,35 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Unzip All Packs
+        uses: TonyBogdanov/zip@1.0
+        with:
+          args: unzip -f "packs/*.zip" -d ./output
+      
+      - name: Copy Overrides
+        run: sudo cp -rf ./overrides/* ./output/
+      
+      - name: Create Singular Pack
+        uses: TonyBogdanov/zip@1.0
+        with:
+          args: zip -r ./pack.zip ./output
+      
+      - name: Create Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: false
+          title: "Auto-Generated release"
+          files: ./pack.zip
